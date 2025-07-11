@@ -258,18 +258,6 @@ resource "aws_codepipeline" "pipeline" {
         ProjectName = aws_codebuild_project.code_build_project.name
       }
     }
-
-    action {
-      name             = "ImageSource"
-      category         = "Build"
-      owner            = "AWS"
-      provider         = "ECRBuildAndPublish"
-      version          = "1"
-      input_artifacts  = ["SourceOutput"]
-      configuration = {
-        ECRRepositoryName = var.ecr_repo_name
-      }
-    }    
   }
 /*
     stage {
