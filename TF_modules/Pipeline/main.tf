@@ -55,7 +55,7 @@ resource "aws_iam_policy" "code_build_default_policy" {
       }
     ]
   })
-  # roles = [aws_iam_role.code_build_role.name]
+ 
 }
 
 resource "aws_iam_role_policy_attachment" "attach_codebuild_policy" {
@@ -251,7 +251,23 @@ resource "aws_codepipeline" "pipeline" {
         ProjectName = aws_codebuild_project.code_build_project.name
       }
     }
+
+    action {
+      name             = "ImageSource"
+      category         = "Source"
+      owner            = "AWS"
+      provider         = "ECR"
+      version          = "1"
+      input_artifacts  = ["SourceOutput"]
+      output_artifacts = ["SourceArtifact"]
+      configuration = {
+        ImageTag: "latest"
+        RepositoryName: var.ecr_repo_name
+      }
+    }    
   }
+
+
 /*
   depends_on = [
     aws_iam_role_policy_attachment.attach_codepipeline_policy,

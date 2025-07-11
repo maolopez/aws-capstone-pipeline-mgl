@@ -8,6 +8,7 @@ locals {
   code_pipeline_name = "test-${random_string.suffix.result}"
   code_build_name    = "test-${random_string.suffix.result}"
   full_repository_id = "maolopez/ut_anagramma"
+  #full_repository_id = "maolopez/ut-anagramma"
   codestarconnection = "codestarconn-${random_string.suffix.result}"
 }
 
