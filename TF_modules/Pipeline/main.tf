@@ -254,21 +254,37 @@ resource "aws_codepipeline" "pipeline" {
 
     action {
       name             = "ImageSource"
-      category         = "Source"
+      category         = "Build"
       owner            = "AWS"
-      provider         = "ECR"
+      provider         = "ECRBuildAndPublish"
       version          = "1"
       input_artifacts  = ["SourceOutput"]
-      output_artifacts = ["SourceArtifact"]
       configuration = {
-        ImageTag: "latest"
-        RepositoryName: var.ecr_repo_name
+        ECRRepositoryName var.ecr_repo_name
       }
     }    
   }
-
-
 /*
+    stage {
+    name = "Deploy"
+
+    action {
+      name            = "Deploy"
+      category        = "Deploy"
+      owner           = "AWS"
+      provider        = "EKS"
+      input_artifacts = ["SourceOutput"]
+      version         = "1"
+
+      configuration = {
+        ClusterName = var.eksclustername
+        ManifestFiles = "deploy_serve.yaml"
+      }
+    }
+  }
+
+
+
   depends_on = [
     aws_iam_role_policy_attachment.attach_codepipeline_policy,
     aws_iam_role_policy_attachment.attach_github_ecr_policy
