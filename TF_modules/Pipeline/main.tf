@@ -57,7 +57,7 @@ resource "aws_iam_policy" "code_build_default_policy" {
         Effect = "Allow"
         Action = ["ecr:GetAuthorizationToken"]
         Resource = [
-          *
+          "*"
         ]
       }      
     ]
