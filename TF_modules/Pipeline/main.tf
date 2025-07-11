@@ -55,7 +55,7 @@ resource "aws_iam_policy" "code_build_default_policy" {
       },
       {
         Effect = "Allow"
-        Action = ["ecr:GetAuthorizationToken", "ecr:InitiateLayerUpload", "ecr:UploadLayerPart", "ecr:CompleteLayerUpload"]
+        Action = ["ecr:GetAuthorizationToken", "ecr:BatchGetImage", "ecr:BatchCheckLayerAvailability", "ecr:PutImage", "ecr:InitiateLayerUpload", "ecr:UploadLayerPart", "ecr:CompleteLayerUpload"]
         Resource = [
           "*"
         ]
