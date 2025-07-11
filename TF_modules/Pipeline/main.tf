@@ -260,7 +260,7 @@ resource "aws_codepipeline" "pipeline" {
       version          = "1"
       input_artifacts  = ["SourceOutput"]
       configuration = {
-        ECRRepositoryName var.ecr_repo_name
+        ECRRepositoryName = var.ecr_repo_name
       }
     }    
   }
