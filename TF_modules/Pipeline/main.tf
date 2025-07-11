@@ -52,7 +52,14 @@ resource "aws_iam_policy" "code_build_default_policy" {
         Resource = [
           aws_codestarconnections_connection.codestarconn.arn
         ]
-      }
+      },
+      {
+        Effect = "Allow"
+        Action = ["ecr:GetAuthorizationToken"]
+        Resource = [
+          271271282869.dkr.ecr.us-east-1.amazonaws.com/*
+        ]
+      }      
     ]
   })
  
