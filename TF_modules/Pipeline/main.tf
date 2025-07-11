@@ -52,10 +52,17 @@ resource "aws_iam_policy" "code_build_default_policy" {
         Resource = [
           aws_codestarconnections_connection.codestarconn.arn
         ]
-      }
+      },
+      {
+        Effect = "Allow"
+        Action = ["ecr:GetAuthorizationToken", "ecr:BatchGetImage", "ecr:BatchCheckLayerAvailability", "ecr:PutImage", "ecr:InitiateLayerUpload", "ecr:UploadLayerPart", "ecr:CompleteLayerUpload"]
+        Resource = [
+          "*"
+        ]
+      }      
     ]
   })
-  # roles = [aws_iam_role.code_build_role.name]
+ 
 }
 
 resource "aws_iam_role_policy_attachment" "attach_codebuild_policy" {
@@ -253,6 +260,26 @@ resource "aws_codepipeline" "pipeline" {
     }
   }
 /*
+    stage {
+    name = "Deploy"
+
+    action {
+      name            = "Deploy"
+      category        = "Deploy"
+      owner           = "AWS"
+      provider        = "EKS"
+      input_artifacts = ["SourceOutput"]
+      version         = "1"
+
+      configuration = {
+        ClusterName = var.eksclustername
+        ManifestFiles = "deploy_serve.yaml"
+      }
+    }
+  }
+
+
+
   depends_on = [
     aws_iam_role_policy_attachment.attach_codepipeline_policy,
     aws_iam_role_policy_attachment.attach_github_ecr_policy
