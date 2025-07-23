@@ -60,4 +60,4 @@ https://gitlab.com/maolopez1/ut_anagramma
 
 https://github.com/maolopez/aws-capstone-kubernetes-mgl
 
-https://github.com/maolopez/aws-capstone-pipeline-mgl
+https://github.com/maolopez/aws-capstone
